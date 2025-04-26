@@ -10,11 +10,11 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ activeTab, setActiveTab }: AdminSidebarProps) {
   const tabs = [
-    { id: "overview", label: "Overview", icon: BarChart3Icon },
-    { id: "competitions", label: "Competitions", icon: CalendarIcon },
-    { id: "participants", label: "Participants", icon: UsersIcon },
-    { id: "results", label: "Results", icon: TrophyIcon },
-    { id: "sports", label: "Sports", icon: ListIcon },
+    { id: "pregled", label: "Pregled", icon: BarChart3Icon },
+    { id: "natjecanja", label: "Natjecanja", icon: CalendarIcon },
+    { id: "sudionici", label: "Sudionici", icon: UsersIcon },
+    { id: "rezultati", label: "Rezultati", icon: TrophyIcon },
+    { id: "sportovi", label: "Sportovi", icon: ListIcon },
   ]
 
   return (

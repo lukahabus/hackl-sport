@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
 
@@ -13,9 +12,9 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   const routes = [
-    { href: "/", label: "Home" },
-    { href: "/competitions", label: "Competitions" },
-    { href: "/admin", label: "Admin" },
+    { href: "/", label: "Naslovnica" },
+    { href: "/natjecanja", label: "Natjecanja" },
+    { href: "/profil", label: "Moj profil" },
   ]
 
   const isActive = (path: string) => {
@@ -26,7 +25,7 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-white">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -54,7 +53,9 @@ export function Navbar() {
           </Sheet>
 
           <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl">HACKL</span>
+            <div className="relative h-8 w-24">
+              <img src="/logo.png" alt="ZagiSport Logo" className="h-8" />
+            </div>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 ml-6">
@@ -73,7 +74,17 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
-          <ModeToggle />
+          <Button variant="ghost" size="sm" asChild>
+            <Link href="/login">Login</Link>
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
+            className="bg-zagi-light-blue text-black hover:bg-zagi-lighter-blue"
+            asChild
+          >
+            <Link href="/registracija">Registracija</Link>
+          </Button>
         </div>
       </div>
     </header>

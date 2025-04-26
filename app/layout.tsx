@@ -9,8 +9,8 @@ import { Footer } from "@/components/footer"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "HACKL - Sports Innovation Platform",
-  description: "A platform for sports competitions and results",
+  title: "ZagiSport - Platforma za sportska natjecanja",
+  description: "Platforma za pregled i upravljanje sportskim natjecanjima",
     generator: 'v0.dev'
 }
 
@@ -20,9 +20,9 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="hr" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen flex-col">
             <Navbar />
             <main className="flex-1">{children}</main>

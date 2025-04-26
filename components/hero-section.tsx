@@ -3,33 +3,38 @@ import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
   return (
-    <section className="py-12 md:py-24 lg:py-32 xl:py-36">
-      <div className="container px-4 md:px-6">
-        <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-          <div className="flex flex-col justify-center space-y-4">
-            <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
-                Discover Sports Competitions with HACKL
-              </h1>
-              <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                Your platform for browsing, tracking, and managing sports competitions across all disciplines.
-              </p>
-            </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
-              <Button asChild size="lg">
-                <Link href="/competitions">Browse Competitions</Link>
+    <section className="relative">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          className="w-full h-full object-cover opacity-60"
+          poster="/placeholder.svg?key=usvvv"
+        >
+          <source src="/hero-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4">
+        <div className="grid grid-cols-1 gap-8 py-16 md:py-24">
+          <div className="flex flex-col justify-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">Kup grada Zagreba 2025.</h1>
+            <p className="text-lg mb-6 text-white">
+              Pridruži se šahovskom natjecanju u Zagrebačkom šahovskom savezu od 22.4.2025. do 30.4.2025.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Button asChild className="bg-primary text-white">
+                <Link href="/natjecanja">Pregled natjecanja</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/admin">Admin Dashboard</Link>
+              <Button
+                asChild
+                variant="outline"
+                className="bg-white bg-opacity-20 text-white hover:bg-white hover:bg-opacity-30"
+              >
+                <Link href="/admin">Admin dashboard</Link>
               </Button>
-            </div>
-          </div>
-          <div className="flex items-center justify-center">
-            <div className="relative h-[300px] w-full overflow-hidden rounded-xl bg-muted md:h-[400px] lg:h-[500px]">
-              {/* This would typically be an image */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-muted-foreground/20 flex items-center justify-center">
-                <span className="text-4xl font-bold text-primary/40">HACKL</span>
-              </div>
             </div>
           </div>
         </div>
