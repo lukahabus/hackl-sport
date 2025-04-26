@@ -1,0 +1,92 @@
+export const participants = [
+  {
+    id: "p1",
+    name: "Michael Johnson",
+    country: "USA",
+    category: "Men's Freestyle",
+  },
+  {
+    id: "p2",
+    name: "Emma Wilson",
+    country: "UK",
+    category: "Women's Butterfly",
+  },
+  {
+    id: "p3",
+    name: "Carlos Rodriguez",
+    country: "Spain",
+    category: "Men's 100m",
+  },
+  {
+    id: "p4",
+    name: "Sophie Martin",
+    country: "France",
+    category: "Women's Long Jump",
+  },
+  {
+    id: "p5",
+    name: "Thomas Weber",
+    country: "Germany",
+    category: "Men's Cycling",
+  },
+  {
+    id: "p6",
+    name: "Yuki Tanaka",
+    country: "Japan",
+    category: "Women's Tennis Singles",
+  },
+  {
+    id: "p7",
+    name: "Team Phoenix",
+    country: "USA",
+    category: "Men's Basketball",
+  },
+  {
+    id: "p8",
+    name: "Team Titans",
+    country: "Spain",
+    category: "Men's Basketball",
+  },
+  {
+    id: "p9",
+    name: "Liu Wei",
+    country: "China",
+    category: "Men's Freestyle",
+  },
+  {
+    id: "p10",
+    name: "Anna Petrova",
+    country: "Russia",
+    category: "Women's Freestyle",
+  },
+  {
+    id: "p11",
+    name: "James Smith",
+    country: "Australia",
+    category: "Men's Marathon",
+  },
+  {
+    id: "p12",
+    name: "Maria Garcia",
+    country: "Mexico",
+    category: "Women's Marathon",
+  },
+  {
+    id: "p13",
+    name: "Team Dragons",
+    country: "China",
+    category: "Men's Basketball",
+  },
+  {
+    id: "p14",
+    name: "Team Eagles",
+    country: "Germany",
+    category: "Men's Basketball",
+  },
+  {
+    id: "p15",
+    name: "Rafael Gomez",
+    country: "Spain",
+    category: "Men's Tennis Singles",
+  },
+]
