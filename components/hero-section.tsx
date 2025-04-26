@@ -5,15 +5,7 @@ export function HeroSection() {
   return (
     <section className="relative">
       <div className="absolute inset-0 w-full h-full overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          className="w-full h-full object-cover opacity-60"
-          poster="/placeholder.svg?key=usvvv"
-        >
-          <source src="/hero-video.mp4" type="video/mp4" />
-        </video>
+        <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: "url('/chess-hero.png')" }} />
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       </div>
 
