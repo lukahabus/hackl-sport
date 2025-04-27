@@ -17,6 +17,7 @@ import { CheckCircle2, Camera, LogOut, MapPinIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { SubscriptionManagement } from "@/components/subscription-management"
 
 // Mock data for user's competitions
 const userCompetitions = [
@@ -70,7 +71,7 @@ export default function ProfilPage() {
 
   useEffect(() => {
     const tab = searchParams.get("tab")
-    if (tab && ["osobni-podaci", "postavke", "natjecanja"].includes(tab)) {
+    if (tab && ["osobni-podaci", "postavke", "natjecanja", "pretplate"].includes(tab)) {
       setActiveTab(tab)
     }
   }, [searchParams])
@@ -150,10 +151,11 @@ export default function ProfilPage() {
 
         <div className="space-y-6">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="osobni-podaci">Osobni podaci</TabsTrigger>
               <TabsTrigger value="postavke">Postavke računa</TabsTrigger>
               <TabsTrigger value="natjecanja">Moja natjecanja</TabsTrigger>
+              <TabsTrigger value="pretplate">Moje pretplate</TabsTrigger>
             </TabsList>
 
             <TabsContent value="osobni-podaci" className="mt-6">
@@ -441,6 +443,10 @@ export default function ProfilPage() {
                   )}
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            <TabsContent value="pretplate" className="mt-6">
+              <SubscriptionManagement />
             </TabsContent>
           </Tabs>
         </div>

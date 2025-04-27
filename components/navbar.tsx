@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
+import { NotificationCenter } from "@/components/notification-center"
 
 export function Navbar() {
   const pathname = usePathname()
@@ -81,6 +82,7 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-2">
+          <NotificationCenter />
           <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Login</Link>
           </Button>

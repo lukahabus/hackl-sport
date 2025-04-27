@@ -12,6 +12,9 @@ import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CalendarIcon, MapPinIcon, TrophyIcon, UsersIcon, ArrowLeftIcon } from "lucide-react"
 import { PhotoGallery } from "@/components/photo-gallery"
+import { SubscriptionButton } from "@/components/subscription-button"
+import { useEffect, useState } from "react"
+import { isSubscribedToCompetition } from "@/app/actions/subscription"
 
 // Mock photo data for finished competitions
 const mockPhotos = {
@@ -159,6 +162,20 @@ const mockPhotos = {
 
 export default function NatjecanjeDetailsPage({ params }: { params: { id: string } }) {
   const natjecanje = natjecanja.find((c) => c.id === params.id)
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const checkSubscription = async () => {
+      if (natjecanje) {
+        const subscribed = await isSubscribedToCompetition(natjecanje.id)
+        setIsSubscribed(subscribed)
+        setIsLoading(false)
+      }
+    }
+
+    checkSubscription()
+  }, [natjecanje])
 
   if (!natjecanje) {
     notFound()
@@ -245,6 +262,9 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
             </div>
             <h1 className="text-4xl font-bold tracking-tight">{natjecanje.naziv}</h1>
           </div>
+
+          {/* Add subscription button */}
+          {!isLoading && <SubscriptionButton competitionId={natjecanje.id} initialSubscribed={isSubscribed} />}
         </div>
       </div>
 

@@ -1,9 +1,14 @@
+"use client"
+
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { sportovi } from "@/data/sportovi"
 import { CalendarIcon, MapPinIcon } from "lucide-react"
+import { SubscriptionButton } from "@/components/subscription-button"
+import { isSubscribedToCompetition } from "@/app/actions/subscription"
+import { useEffect, useState } from "react"
 
 interface NatjecanjeCardProps {
   natjecanje: {
@@ -19,6 +24,18 @@ export function NatjecanjeCard({ natjecanje }: NatjecanjeCardProps) {
   const sport = sportovi.find((s) => s.id === natjecanje.sportId)
   const isUpcoming = new Date(natjecanje.datum) > new Date()
   const isActive = isUpcoming && new Date(natjecanje.datum) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const checkSubscription = async () => {
+      const subscribed = await isSubscribedToCompetition(natjecanje.id)
+      setIsSubscribed(subscribed)
+      setIsLoading(false)
+    }
+
+    checkSubscription()
+  }, [natjecanje.id])
 
   let statusVariant = "default"
   let statusText = "Aktivno"
@@ -70,10 +87,18 @@ export function NatjecanjeCard({ natjecanje }: NatjecanjeCardProps) {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button asChild className="w-full bg-[#0057B8] hover:bg-[#004494] text-white">
+      <CardFooter className="flex gap-2">
+        <Button asChild className="flex-1 bg-[#0057B8] hover:bg-[#004494] text-white">
           <Link href={`/natjecanja/${natjecanje.id}`}>Detalji</Link>
         </Button>
+        {!isLoading && isUpcoming && (
+          <SubscriptionButton
+            competitionId={natjecanje.id}
+            initialSubscribed={isSubscribed}
+            variant="outline"
+            size="icon"
+          />
+        )}
       </CardFooter>
     </Card>
   )
