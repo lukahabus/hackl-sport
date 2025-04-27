@@ -14,6 +14,7 @@ export function Navbar() {
   const routes = [
     { href: "/", label: "Naslovnica" },
     { href: "/natjecanja", label: "Natjecanja" },
+    { href: "/roditelji", label: "Za roditelje" },
     { href: "/profil", label: "Moj profil" },
   ]
 
@@ -35,7 +36,10 @@ export function Navbar() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-              <nav className="flex flex-col gap-4 mt-8">
+              <div className="flex items-center mb-8">
+                <img src="/images/zagisport-logo-notext.png" alt="ZagiSport Logo" className="h-12" />
+              </div>
+              <nav className="flex flex-col gap-4">
                 {routes.map((route) => (
                   <Link
                     key={route.href}
@@ -53,8 +57,8 @@ export function Navbar() {
           </Sheet>
 
           <Link href="/" className="flex items-center space-x-2">
-            <div className="relative h-8 w-24">
-              <img src="/logo.png" alt="ZagiSport Logo" className="h-8" />
+            <div className="flex items-center">
+              <img src="/images/zagisport-logo-notext.png" alt="ZagiSport Logo" className="h-10" />
             </div>
           </Link>
 

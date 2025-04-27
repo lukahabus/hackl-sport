@@ -10,7 +10,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 container mx-auto px-4">
-        <div className="grid grid-cols-1 gap-8 py-16 md:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 py-16 md:py-24">
           <div className="flex flex-col justify-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">Kup grada Zagreba 2025.</h1>
             <p className="text-lg mb-6 text-white">
@@ -28,6 +28,9 @@ export function HeroSection() {
                 <Link href="/admin">Admin dashboard</Link>
               </Button>
             </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <img src="/images/zagi-mascot-tennis.png" alt="Zagi Mascot" className="h-48 md:h-64" />
           </div>
         </div>
       </div>

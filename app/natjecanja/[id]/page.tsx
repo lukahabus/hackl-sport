@@ -11,6 +11,151 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CalendarIcon, MapPinIcon, TrophyIcon, UsersIcon, ArrowLeftIcon } from "lucide-react"
+import { PhotoGallery } from "@/components/photo-gallery"
+
+// Mock photo data for finished competitions
+const mockPhotos = {
+  "regionalno-plivanje-2024": [
+    {
+      id: "p1",
+      url: "https://source.unsplash.com/random/800x600?swimming",
+      alt: "Plivačko natjecanje 1",
+      thumbnail: "https://source.unsplash.com/random/400x300?swimming",
+    },
+    {
+      id: "p2",
+      url: "https://source.unsplash.com/random/800x600?swimming-pool",
+      alt: "Plivačko natjecanje 2",
+      thumbnail: "https://source.unsplash.com/random/400x300?swimming-pool",
+    },
+    {
+      id: "p3",
+      url: "https://source.unsplash.com/random/800x600?swimming-competition",
+      alt: "Plivačko natjecanje 3",
+      thumbnail: "https://source.unsplash.com/random/400x300?swimming-competition",
+    },
+    {
+      id: "p4",
+      url: "https://source.unsplash.com/random/800x600?swimmer",
+      alt: "Plivačko natjecanje 4",
+      thumbnail: "https://source.unsplash.com/random/400x300?swimmer",
+    },
+    {
+      id: "p5",
+      url: "https://source.unsplash.com/random/800x600?swimming-race",
+      alt: "Plivačko natjecanje 5",
+      thumbnail: "https://source.unsplash.com/random/400x300?swimming-race",
+    },
+    {
+      id: "p6",
+      url: "https://source.unsplash.com/random/800x600?pool",
+      alt: "Plivačko natjecanje 6",
+      thumbnail: "https://source.unsplash.com/random/400x300?pool",
+    },
+  ],
+  "maraton-grad-2024": [
+    {
+      id: "m1",
+      url: "https://source.unsplash.com/random/800x600?marathon",
+      alt: "Maraton 1",
+      thumbnail: "https://source.unsplash.com/random/400x300?marathon",
+    },
+    {
+      id: "m2",
+      url: "https://source.unsplash.com/random/800x600?running",
+      alt: "Maraton 2",
+      thumbnail: "https://source.unsplash.com/random/400x300?running",
+    },
+    {
+      id: "m3",
+      url: "https://source.unsplash.com/random/800x600?marathon-finish",
+      alt: "Maraton 3",
+      thumbnail: "https://source.unsplash.com/random/400x300?marathon-finish",
+    },
+    {
+      id: "m4",
+      url: "https://source.unsplash.com/random/800x600?runners",
+      alt: "Maraton 4",
+      thumbnail: "https://source.unsplash.com/random/400x300?runners",
+    },
+    {
+      id: "m5",
+      url: "https://source.unsplash.com/random/800x600?marathon-start",
+      alt: "Maraton 5",
+      thumbnail: "https://source.unsplash.com/random/400x300?marathon-start",
+    },
+    {
+      id: "m6",
+      url: "https://source.unsplash.com/random/800x600?marathon-crowd",
+      alt: "Maraton 6",
+      thumbnail: "https://source.unsplash.com/random/400x300?marathon-crowd",
+    },
+  ],
+  "grand-slam-open-2023": [
+    {
+      id: "t1",
+      url: "https://source.unsplash.com/random/800x600?tennis",
+      alt: "Tenis 1",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis",
+    },
+    {
+      id: "t2",
+      url: "https://source.unsplash.com/random/800x600?tennis-court",
+      alt: "Tenis 2",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis-court",
+    },
+    {
+      id: "t3",
+      url: "https://source.unsplash.com/random/800x600?tennis-match",
+      alt: "Tenis 3",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis-match",
+    },
+    {
+      id: "t4",
+      url: "https://source.unsplash.com/random/800x600?tennis-player",
+      alt: "Tenis 4",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis-player",
+    },
+    {
+      id: "t5",
+      url: "https://source.unsplash.com/random/800x600?tennis-tournament",
+      alt: "Tenis 5",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis-tournament",
+    },
+    {
+      id: "t6",
+      url: "https://source.unsplash.com/random/800x600?tennis-racket",
+      alt: "Tenis 6",
+      thumbnail: "https://source.unsplash.com/random/400x300?tennis-racket",
+    },
+  ],
+  "kosarkaska-liga-finale-2024": [
+    {
+      id: "b1",
+      url: "https://source.unsplash.com/random/800x600?basketball",
+      alt: "Košarka 1",
+      thumbnail: "https://source.unsplash.com/random/400x300?basketball",
+    },
+    {
+      id: "b2",
+      url: "https://source.unsplash.com/random/800x600?basketball-court",
+      alt: "Košarka 2",
+      thumbnail: "https://source.unsplash.com/random/400x300?basketball-court",
+    },
+    {
+      id: "b3",
+      url: "https://source.unsplash.com/random/800x600?basketball-game",
+      alt: "Košarka 3",
+      thumbnail: "https://source.unsplash.com/random/400x300?basketball-game",
+    },
+    {
+      id: "b4",
+      url: "https://source.unsplash.com/random/800x600?basketball-player",
+      alt: "Košarka 4",
+      thumbnail: "https://source.unsplash.com/random/400x300?basketball-player",
+    },
+  ],
+}
 
 export default function NatjecanjeDetailsPage({ params }: { params: { id: string } }) {
   const natjecanje = natjecanja.find((c) => c.id === params.id)
@@ -44,6 +189,9 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
     statusText = "Nadolazeće"
   }
 
+  // Get photos for this competition
+  const competitionPhotos = mockPhotos[natjecanje.id] || []
+
   // Format date to Croatian format
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
@@ -53,6 +201,17 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
       month: "long",
       year: "numeric",
     })
+  }
+
+  // Determine which mascot image to show based on sport type
+  const getMascotImage = () => {
+    if (natjecanje.sportId === "plivanje") {
+      return "/images/zagi-mascot-waterpolo.png"
+    } else if (natjecanje.sportId === "tenis") {
+      return "/images/zagi-mascot-tennis.png"
+    } else {
+      return "/images/zagi-mascot-running.png"
+    }
   }
 
   return (
@@ -135,10 +294,13 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
           </Card>
 
           <Tabs defaultValue={isUpcoming ? "sudionici" : "rezultati"}>
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="sudionici">Sudionici</TabsTrigger>
               <TabsTrigger value="rezultati" disabled={isUpcoming}>
                 Rezultati
+              </TabsTrigger>
+              <TabsTrigger value="galerija" disabled={isUpcoming || competitionPhotos.length === 0}>
+                Galerija
               </TabsTrigger>
             </TabsList>
             <TabsContent value="sudionici" className="mt-4">
@@ -208,6 +370,23 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
                 </CardContent>
               </Card>
             </TabsContent>
+            <TabsContent value="galerija" className="mt-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Galerija fotografija</CardTitle>
+                  <CardDescription>Fotografije s natjecanja</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {!isUpcoming && competitionPhotos.length > 0 ? (
+                    <PhotoGallery photos={competitionPhotos} />
+                  ) : (
+                    <div className="py-8 text-center">
+                      <p className="text-muted-foreground">Fotografije će biti dostupne nakon natjecanja</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </TabsContent>
           </Tabs>
         </div>
 
@@ -261,6 +440,10 @@ export default function NatjecanjeDetailsPage({ params }: { params: { id: string
               </div>
             </CardContent>
           </Card>
+
+          <div className="flex justify-center">
+            <img src={getMascotImage() || "/placeholder.svg"} alt="Zagi Mascot" className="h-48" />
+          </div>
         </div>
       </div>
     </div>

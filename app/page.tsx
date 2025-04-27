@@ -13,8 +13,8 @@ export default function Home() {
       <section className="my-12">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Istaknuta natjecanja</h2>
-            <p className="text-muted-foreground mt-2">Otkrijte najzanimljivije sportske događaje</p>
+            <h2 className="text-3xl font-bold tracking-tight">Natjecanja</h2>
+            <p className="text-muted-foreground mt-2">Završena i nadolazeća sportska natjecanja</p>
           </div>
           <Button asChild className="mt-4 md:mt-0">
             <Link href="/natjecanja">Pregledaj sve</Link>
@@ -30,7 +30,7 @@ export default function Home() {
       <section className="my-12">
         <div className="flex flex-col md:flex-row justify-between items-center mb-8">
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Nadolazeća natjecanja</h2>
+            <h2 className="text-3xl font-bold tracking-tight">Uskoro počinju</h2>
             <p className="text-muted-foreground mt-2">Sportska natjecanja koja uskoro počinju</p>
           </div>
         </div>

@@ -10,13 +10,15 @@ import { CalendarIcon, MapPinIcon } from "lucide-react"
 export function NadolazecaNatjecanja() {
   const currentDate = new Date()
 
-  // Get upcoming competitions sorted by date (only future events)
-  // Filter for competitions after May 2025 if requested
-  const mayFirstDate = new Date("2025-05-01T00:00:00Z")
+  // Get upcoming competitions that are starting soon (within the next 30 days)
+  const thirtyDaysFromNow = new Date(currentDate)
+  thirtyDaysFromNow.setDate(currentDate.getDate() + 30)
 
   const nadolazecaNatjecanja = [...natjecanja]
-    .filter((comp) => new Date(comp.datum) > currentDate)
-    .filter((comp) => new Date(comp.datum) >= mayFirstDate) // Only show competitions from May 2025 or later
+    .filter((comp) => {
+      const compDate = new Date(comp.datum)
+      return compDate > currentDate && compDate <= thirtyDaysFromNow
+    })
     .sort((a, b) => new Date(a.datum).getTime() - new Date(b.datum).getTime())
     .slice(0, 5)
 
@@ -77,7 +79,7 @@ export function NadolazecaNatjecanja() {
       ) : (
         <Card>
           <CardContent className="p-4 text-center">
-            <p className="text-muted-foreground">Nema nadolazećih događaja</p>
+            <p className="text-muted-foreground">Nema nadolazećih događaja u sljedećih 30 dana</p>
           </CardContent>
         </Card>
       )}

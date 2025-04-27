@@ -22,13 +22,16 @@ export function NatjecanjeCard({ natjecanje }: NatjecanjeCardProps) {
 
   let statusVariant = "default"
   let statusText = "Aktivno"
+  let statusClass = "bg-zagi-green text-white"
 
   if (!isUpcoming) {
     statusVariant = "destructive"
     statusText = "Završeno"
+    statusClass = "bg-zagi-red text-white"
   } else if (!isActive) {
     statusVariant = "warning"
     statusText = "Nadolazeće"
+    statusClass = "bg-zagi-yellow text-black"
   }
 
   // Format date to Croatian format
@@ -47,13 +50,7 @@ export function NatjecanjeCard({ natjecanje }: NatjecanjeCardProps) {
         <div className="flex justify-between items-start">
           <Badge
             variant={statusVariant === "default" ? "default" : statusVariant === "warning" ? "outline" : "destructive"}
-            className={
-              statusVariant === "default"
-                ? "bg-zagi-green text-white"
-                : statusVariant === "warning"
-                  ? "bg-zagi-yellow text-black"
-                  : "bg-zagi-red text-white"
-            }
+            className={statusClass}
           >
             {statusText}
           </Badge>
