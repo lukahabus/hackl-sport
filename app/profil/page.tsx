@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -13,7 +13,38 @@ import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { CheckCircle2, Camera, LogOut } from "lucide-react"
+import { CheckCircle2, Camera, LogOut, MapPinIcon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import Link from "next/link"
+import { useSearchParams } from "next/navigation"
+
+// Mock data for user's competitions
+const userCompetitions = [
+  {
+    id: "kup-zagreba-2025",
+    naziv: "Kup grada Zagreba 2025",
+    sportId: "sah",
+    datum: "2025-04-22T09:00:00Z",
+    lokacija: "Zagrebački šahovski savez, Zagreb",
+    status: "registered", // registered, confirmed, completed
+  },
+  {
+    id: "atletsko-prvenstvo-2024",
+    naziv: "Proljetno atletsko prvenstvo",
+    sportId: "atletika",
+    datum: "2024-04-20T10:00:00Z",
+    lokacija: "Atletski stadion, Zagreb",
+    status: "confirmed",
+  },
+  {
+    id: "regionalno-plivanje-2024",
+    naziv: "Regionalno plivačko natjecanje 2024",
+    sportId: "plivanje",
+    datum: "2024-02-28T10:00:00Z",
+    lokacija: "Gradski bazen, Zagreb",
+    status: "completed",
+  },
+]
 
 export default function ProfilPage() {
   const [user, setUser] = useState({
@@ -33,6 +64,16 @@ export default function ProfilPage() {
   const [isEditing, setIsEditing] = useState(false)
   const [editedUser, setEditedUser] = useState(user)
   const [successMessage, setSuccessMessage] = useState("")
+  const [activeTab, setActiveTab] = useState("osobni-podaci")
+
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const tab = searchParams.get("tab")
+    if (tab && ["osobni-podaci", "postavke", "natjecanja"].includes(tab)) {
+      setActiveTab(tab)
+    }
+  }, [searchParams])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -108,7 +149,7 @@ export default function ProfilPage() {
         </div>
 
         <div className="space-y-6">
-          <Tabs defaultValue="osobni-podaci">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="osobni-podaci">Osobni podaci</TabsTrigger>
               <TabsTrigger value="postavke">Postavke računa</TabsTrigger>
@@ -332,10 +373,72 @@ export default function ProfilPage() {
                   <CardDescription>Pregled natjecanja u kojima sudjelujete</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-8">
-                    <p className="text-muted-foreground">Trenutno niste prijavljeni ni na jedno natjecanje.</p>
-                    <Button className="mt-4">Pregledaj natjecanja</Button>
-                  </div>
+                  {userCompetitions.length > 0 ? (
+                    <div className="space-y-4">
+                      {userCompetitions.map((competition) => {
+                        // Format date to Croatian format
+                        const date = new Date(competition.datum)
+                        const formattedDate = date.toLocaleDateString("hr-HR", {
+                          day: "numeric",
+                          month: "numeric",
+                          year: "numeric",
+                        })
+
+                        // Determine badge style based on status
+                        let badgeVariant = "outline"
+                        let badgeText = "Registrirano"
+                        let badgeClass = "bg-zagi-light-blue text-black"
+
+                        if (competition.status === "confirmed") {
+                          badgeVariant = "default"
+                          badgeText = "Potvrđeno"
+                          badgeClass = "bg-zagi-green text-white"
+                        } else if (competition.status === "completed") {
+                          badgeVariant = "destructive"
+                          badgeText = "Završeno"
+                          badgeClass = "bg-zagi-red text-white"
+                        }
+
+                        return (
+                          <Card key={competition.id} className="overflow-hidden">
+                            <CardContent className="p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                              <div className="flex flex-col gap-1">
+                                <div className="flex items-center gap-2">
+                                  <Badge variant={badgeVariant} className={badgeClass}>
+                                    {badgeText}
+                                  </Badge>
+                                  <span className="text-sm text-muted-foreground">{formattedDate}</span>
+                                </div>
+                                <h3 className="font-medium">{competition.naziv}</h3>
+                                <div className="flex items-center text-sm text-muted-foreground">
+                                  <MapPinIcon className="mr-1 h-3 w-3" />
+                                  {competition.lokacija}
+                                </div>
+                              </div>
+                              <Button asChild className="whitespace-nowrap">
+                                <Link href={`/natjecanja/${competition.id}`}>
+                                  {competition.status === "completed" ? "Pregledaj rezultate" : "Detalji natjecanja"}
+                                </Link>
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        )
+                      })}
+
+                      <div className="flex justify-center mt-6">
+                        <Button variant="outline">
+                          <Link href="/natjecanja">Pregledaj sva natjecanja</Link>
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <p className="text-muted-foreground">Trenutno niste prijavljeni ni na jedno natjecanje.</p>
+                      <Button className="mt-4">
+                        <Link href="/natjecanja">Pregledaj natjecanja</Link>
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>

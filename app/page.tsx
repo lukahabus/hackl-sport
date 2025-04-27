@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { IstaknutoNatjecanje } from "@/components/istaknuto-natjecanje"
 import { NadolazecaNatjecanja } from "@/components/nadolazeca-natjecanja"
 import { HeroSection } from "@/components/hero-section"
+import { MojaNadolazecaNatjecanja } from "@/components/moja-nadolazeca-natjecanja"
 
 export default function Home() {
   return (
@@ -20,6 +21,10 @@ export default function Home() {
           </Button>
         </div>
         <IstaknutoNatjecanje />
+      </section>
+
+      <section className="my-12">
+        <MojaNadolazecaNatjecanja />
       </section>
 
       <section className="my-12">
