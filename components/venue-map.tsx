@@ -1,17 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup, ZoomControl } from "react-leaflet"
-import { Icon } from "leaflet"
+import dynamic from "next/dynamic"
 import { natjecanja } from "@/data/natjecanja"
 import { sportovi } from "@/data/sportovi"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { CalendarIcon } from "lucide-react"
-
-// Import Leaflet CSS
-import "leaflet/dist/leaflet.css"
+import { CalendarIcon, Loader2 } from "lucide-react"
 
 // Define the venue type with coordinates
 interface Venue {
@@ -31,19 +27,18 @@ interface Venue {
 // Zagreb's coordinates
 const ZAGREB_CENTER = { lat: 45.815, lng: 15.982 }
 
+// Dynamically import the map components with no SSR
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false })
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false })
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false })
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false })
+const ZoomControl = dynamic(() => import("react-leaflet").then((mod) => mod.ZoomControl), { ssr: false })
+
 export function VenueMap() {
   const [venues, setVenues] = useState<Venue[]>([])
   const [isClient, setIsClient] = useState(false)
-
-  // Custom icon for markers
-  const customIcon = new Icon({
-    iconUrl: "/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowUrl: "/images/marker-shadow.png",
-    shadowSize: [41, 41],
-  })
+  const [leafletLoaded, setLeafletLoaded] = useState(false)
+  const [customIcon, setCustomIcon] = useState<any>(null)
 
   // Format date to Croatian format
   const formatDate = (dateString: string) => {
@@ -57,6 +52,30 @@ export function VenueMap() {
 
   useEffect(() => {
     setIsClient(true)
+
+    // Dynamically import Leaflet CSS
+    const linkElement = document.createElement("link")
+    linkElement.rel = "stylesheet"
+    linkElement.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    linkElement.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    linkElement.crossOrigin = ""
+    document.head.appendChild(linkElement)
+
+    // Dynamically import Leaflet
+    import("leaflet").then((L) => {
+      // Create custom icon
+      const icon = new L.Icon({
+        iconUrl: "/images/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "/images/marker-shadow.png",
+        shadowSize: [41, 41],
+      })
+
+      setCustomIcon(icon)
+      setLeafletLoaded(true)
+    })
 
     // Mock venue data with coordinates for Zagreb locations
     const mockVenues = [
@@ -114,8 +133,15 @@ export function VenueMap() {
     setVenues(filteredVenues)
   }, [])
 
-  if (!isClient) {
-    return <div className="h-[600px] bg-gray-100 flex items-center justify-center">Loading map...</div>
+  if (!isClient || !leafletLoaded) {
+    return (
+      <div className="h-[600px] bg-gray-100 flex items-center justify-center rounded-lg">
+        <div className="flex flex-col items-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary mb-2" />
+          <p>Učitavanje karte...</p>
+        </div>
+      </div>
+    )
   }
 
   return (

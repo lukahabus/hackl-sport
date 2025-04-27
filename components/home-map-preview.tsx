@@ -1,14 +1,10 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { MapContainer, TileLayer, Marker } from "react-leaflet"
-import { Icon } from "leaflet"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { MapIcon } from "lucide-react"
-
-// Import Leaflet CSS
-import "leaflet/dist/leaflet.css"
+import { MapIcon, Loader2 } from "lucide-react"
 
 // Zagreb's coordinates
 const ZAGREB_CENTER = { lat: 45.815, lng: 15.982 }
@@ -22,26 +18,52 @@ const SAMPLE_VENUES = [
   { id: "v5", name: "Središnji teren", lat: 45.8233, lng: 15.9722 },
 ]
 
+// Dynamically import the map components with no SSR
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false })
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false })
+const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false })
+
 export function HomeMapPreview() {
   const [isClient, setIsClient] = useState(false)
-
-  // Custom icon for markers
-  const customIcon = new Icon({
-    iconUrl: "/images/marker-icon.png",
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowUrl: "/images/marker-shadow.png",
-    shadowSize: [41, 41],
-  })
+  const [leafletLoaded, setLeafletLoaded] = useState(false)
+  const [customIcon, setCustomIcon] = useState<any>(null)
 
   useEffect(() => {
     setIsClient(true)
+
+    // Dynamically import Leaflet CSS
+    const linkElement = document.createElement("link")
+    linkElement.rel = "stylesheet"
+    linkElement.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    linkElement.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    linkElement.crossOrigin = ""
+    document.head.appendChild(linkElement)
+
+    // Dynamically import Leaflet
+    import("leaflet").then((L) => {
+      // Create custom icon
+      const icon = new L.Icon({
+        iconUrl: "/images/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "/images/marker-shadow.png",
+        shadowSize: [41, 41],
+      })
+
+      setCustomIcon(icon)
+      setLeafletLoaded(true)
+    })
   }, [])
 
-  if (!isClient) {
+  if (!isClient || !leafletLoaded) {
     return (
-      <div className="h-[300px] bg-gray-100 flex items-center justify-center rounded-lg">Loading map preview...</div>
+      <div className="h-[300px] bg-gray-100 flex items-center justify-center rounded-lg">
+        <div className="flex flex-col items-center">
+          <Loader2 className="h-6 w-6 animate-spin text-primary mb-2" />
+          <p>Učitavanje pregleda karte...</p>
+        </div>
+      </div>
     )
   }
 
