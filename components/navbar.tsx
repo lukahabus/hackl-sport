@@ -11,9 +11,11 @@ export function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
+  // Update the routes array to include the locations page
   const routes = [
     { href: "/", label: "Naslovnica" },
     { href: "/natjecanja", label: "Natjecanja" },
+    { href: "/lokacije", label: "Lokacije" },
     { href: "/roditelji", label: "Za roditelje" },
     { href: "/profil", label: "Moj profil" },
   ]

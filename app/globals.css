@@ -92,3 +92,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Add these styles at the end of the file */
+
+/* Leaflet popup styling */
+.leaflet-popup-content-wrapper {
+  border-radius: 0.5rem;
+}
+
+.leaflet-popup-content {
+  margin: 0.5rem;
+  min-width: 200px;
+}
+
+.venue-popup .leaflet-popup-content {
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix for Leaflet images in Next.js */
+.leaflet-default-icon-path {
+  background-image: url("/images/marker-icon.png");
+}
+
+.leaflet-default-shadow-path {
+  background-image: url("/images/marker-shadow.png");
+}
