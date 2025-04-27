@@ -6,31 +6,39 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { CalendarIcon, MapPinIcon } from "lucide-react"
 
-// Mock data for user's upcoming competitions
+// Mock data for user's upcoming competitions with distinct names
 const userUpcomingCompetitions = [
   {
-    id: "kup-zagreba-2025",
-    naziv: "Kup grada Zagreba 2025",
-    sportId: "sah",
-    datum: "2025-04-22T09:00:00Z",
-    lokacija: "Zagrebački šahovski savez, Zagreb",
+    id: "ljetni-plivacki-maraton-2025",
+    naziv: "Ljetni plivački maraton 2025",
+    sportId: "plivanje",
+    datum: "2025-05-15T09:00:00Z",
+    lokacija: "Jarun, Zagreb",
     status: "registered", // registered, confirmed
   },
   {
-    id: "atletsko-prvenstvo-2024",
-    naziv: "Proljetno atletsko prvenstvo",
-    sportId: "atletika",
-    datum: "2024-04-20T10:00:00Z",
-    lokacija: "Atletski stadion, Zagreb",
+    id: "europsko-prvenstvo-sah-2025",
+    naziv: "Europsko prvenstvo u šahu 2025",
+    sportId: "sah",
+    datum: "2025-07-05T09:00:00Z",
+    lokacija: "Kongresni centar, Zagreb",
     status: "confirmed",
   },
   {
-    id: "tour-de-planina-2024",
-    naziv: "Tour de Planina 2024",
+    id: "biciklisticki-grand-tour-2025",
+    naziv: "Biciklistički Grand Tour 2025",
     sportId: "biciklizam",
-    datum: "2024-06-10T08:00:00Z",
-    lokacija: "Planinski putevi, Medvednica",
+    datum: "2025-10-01T08:00:00Z",
+    lokacija: "Hrvatska obala",
     status: "registered",
+  },
+  {
+    id: "kosarkaska-liga-prvaka-2025",
+    naziv: "Košarkaška liga prvaka 2025",
+    sportId: "kosarka",
+    datum: "2025-09-15T19:00:00Z",
+    lokacija: "Arena Zagreb, Zagreb",
+    status: "confirmed",
   },
 ]
 

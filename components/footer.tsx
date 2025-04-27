@@ -10,7 +10,7 @@ export function Footer() {
               <img src="/logo.png" alt="ZagiSport Logo" className="h-8" />
             </div>
           </div>
-          <p className="text-sm">© 2025 ZagiSport. All rights reserved.</p>
+          <p className="text-sm">© 2025 ZagiSport. Sva prava pridržana.</p>
         </div>
         <div className="flex gap-6">
           <Link href="/natjecanja" className="text-sm hover:underline">
@@ -19,11 +19,11 @@ export function Footer() {
           <Link href="/admin" className="text-sm hover:underline">
             Admin
           </Link>
-          <Link href="/privacy" className="text-sm hover:underline">
-            Privacy
+          <Link href="/privatnost" className="text-sm hover:underline">
+            Privatnost
           </Link>
-          <Link href="/terms" className="text-sm hover:underline">
-            Terms
+          <Link href="/uvjeti-koristenja" className="text-sm hover:underline">
+            Uvjeti korištenja
           </Link>
         </div>
       </div>

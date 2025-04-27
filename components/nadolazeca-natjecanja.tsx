@@ -8,9 +8,15 @@ import { Badge } from "@/components/ui/badge"
 import { CalendarIcon, MapPinIcon } from "lucide-react"
 
 export function NadolazecaNatjecanja() {
-  // Get upcoming competitions sorted by date
+  const currentDate = new Date()
+
+  // Get upcoming competitions sorted by date (only future events)
+  // Filter for competitions after May 2025 if requested
+  const mayFirstDate = new Date("2025-05-01T00:00:00Z")
+
   const nadolazecaNatjecanja = [...natjecanja]
-    .filter((comp) => new Date(comp.datum) > new Date())
+    .filter((comp) => new Date(comp.datum) > currentDate)
+    .filter((comp) => new Date(comp.datum) >= mayFirstDate) // Only show competitions from May 2025 or later
     .sort((a, b) => new Date(a.datum).getTime() - new Date(b.datum).getTime())
     .slice(0, 5)
 
@@ -26,42 +32,49 @@ export function NadolazecaNatjecanja() {
 
   return (
     <div className="space-y-4">
-      {nadolazecaNatjecanja.map((natjecanje) => {
-        const sport = sportovi.find((s) => s.id === natjecanje.sportId)
+      {nadolazecaNatjecanja.length > 0 ? (
+        nadolazecaNatjecanja.map((natjecanje) => {
+          const sport = sportovi.find((s) => s.id === natjecanje.sportId)
+          const isActive = new Date(natjecanje.datum) < new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
 
-        return (
-          <Link key={natjecanje.id} href={`/natjecanja/${natjecanje.id}`}>
-            <Card className="hover:bg-muted/50 transition-colors">
-              <CardContent className="p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div className="flex flex-col gap-1">
+          return (
+            <Link key={natjecanje.id} href={`/natjecanja/${natjecanje.id}`}>
+              <Card className="hover:bg-muted/50 transition-colors">
+                <CardContent className="p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline">{sport?.naziv || "Općenito"}</Badge>
+                      <Badge
+                        variant={isActive ? "default" : "outline"}
+                        className={isActive ? "bg-zagi-yellow text-black" : ""}
+                      >
+                        {isActive ? "Uskoro" : "Nadolazeće"}
+                      </Badge>
+                      <span className="text-sm text-muted-foreground">{formatDate(natjecanje.datum)}</span>
+                    </div>
+                    <h3 className="font-medium">{natjecanje.naziv}</h3>
+                    <div className="flex items-center text-sm text-muted-foreground">
+                      <MapPinIcon className="mr-1 h-3 w-3" />
+                      {natjecanje.lokacija}
+                    </div>
+                  </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline">{sport?.naziv || "Općenito"}</Badge>
-                    <span className="text-sm text-muted-foreground">{formatDate(natjecanje.datum)}</span>
+                    <div className="flex items-center text-sm">
+                      <CalendarIcon className="mr-1 h-4 w-4" />
+                      <span>
+                        {new Date(natjecanje.datum).toLocaleDateString("hr-HR", {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-medium">{natjecanje.naziv}</h3>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <MapPinIcon className="mr-1 h-3 w-3" />
-                    {natjecanje.lokacija}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center text-sm">
-                    <CalendarIcon className="mr-1 h-4 w-4" />
-                    <span>
-                      {new Date(natjecanje.datum).toLocaleDateString("hr-HR", {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        )
-      })}
-
-      {nadolazecaNatjecanja.length === 0 && (
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })
+      ) : (
         <Card>
           <CardContent className="p-4 text-center">
             <p className="text-muted-foreground">Nema nadolazećih događaja</p>
