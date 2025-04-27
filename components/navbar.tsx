@@ -57,6 +57,19 @@ export function Navbar() {
                   </Link>
                 ))}
               </nav>
+              <div className="mt-6 pt-6 border-t flex flex-col gap-3">
+                <Button variant="outline" size="sm" asChild className="justify-start">
+                  <Link href="/login">Login</Link>
+                </Button>
+                <Button
+                  variant="default"
+                  size="sm"
+                  className="bg-[#0057B8] text-white hover:bg-[#004494] justify-start"
+                  asChild
+                >
+                  <Link href="/registracija">Registracija</Link>
+                </Button>
+              </div>
             </SheetContent>
           </Sheet>
 
@@ -83,12 +96,14 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <NotificationCenter />
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button variant="default" size="sm" className="bg-[#0057B8] text-white hover:bg-[#004494]" asChild>
-            <Link href="/registracija">Registracija</Link>
-          </Button>
+          <div className="hidden lg:flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button variant="default" size="sm" className="bg-[#0057B8] text-white hover:bg-[#004494]" asChild>
+              <Link href="/registracija">Registracija</Link>
+            </Button>
+          </div>
         </div>
       </div>
     </header>

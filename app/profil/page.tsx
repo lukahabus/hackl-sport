@@ -151,11 +151,19 @@ export default function ProfilPage() {
 
         <div className="space-y-6">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="osobni-podaci">Osobni podaci</TabsTrigger>
-              <TabsTrigger value="postavke">Postavke računa</TabsTrigger>
-              <TabsTrigger value="natjecanja">Moja natjecanja</TabsTrigger>
-              <TabsTrigger value="pretplate">Moje pretplate</TabsTrigger>
+            <TabsList className="w-full flex flex-wrap gap-2">
+              <TabsTrigger value="osobni-podaci" className="flex-1 text-xs sm:text-sm">
+                Osobni podaci
+              </TabsTrigger>
+              <TabsTrigger value="postavke" className="flex-1 text-xs sm:text-sm">
+                Postavke računa
+              </TabsTrigger>
+              <TabsTrigger value="natjecanja" className="flex-1 text-xs sm:text-sm">
+                Moja natjecanja
+              </TabsTrigger>
+              <TabsTrigger value="pretplate" className="flex-1 text-xs sm:text-sm">
+                Moje pretplate
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="osobni-podaci" className="mt-6">
