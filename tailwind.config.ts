@@ -26,12 +26,12 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#115a91",
-          foreground: "#ffffff",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#9dd0e4",
-          foreground: "#0e100d",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -53,15 +53,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom colors from design
-        "zagi-blue": "#101935",
-        "zagi-light-blue": "#9dd0e4",
-        "zagi-lighter-blue": "#abbed1",
-        "zagi-green": "#5c8014",
-        "zagi-yellow": "#e3b20f",
-        "zagi-red": "#a40d02",
-        "zagi-gray": "#717171",
-        "zagi-light-gray": "#d9d9d9",
+        "zagi-blue": "#0057B8",
+        "zagi-light-blue": "#00A3E0",
+        "zagi-lighter-blue": "#71C5E8",
+        "zagi-yellow": "#FFD800",
       },
       borderRadius: {
         lg: "var(--radius)",
