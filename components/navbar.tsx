@@ -11,12 +11,13 @@ export function Navbar() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
 
-  // Update the routes array to include the locations page
+  // Update the routes array to include the API docs page
   const routes = [
     { href: "/", label: "Naslovnica" },
     { href: "/natjecanja", label: "Natjecanja" },
     { href: "/lokacije", label: "Lokacije" },
     { href: "/roditelji", label: "Za roditelje" },
+    { href: "/api-docs", label: "API Dokumentacija" },
     { href: "/profil", label: "Moj profil" },
   ]
 
@@ -83,12 +84,7 @@ export function Navbar() {
           <Button variant="ghost" size="sm" asChild>
             <Link href="/login">Login</Link>
           </Button>
-          <Button
-            variant="default"
-            size="sm"
-            className="bg-zagi-light-blue text-black hover:bg-zagi-lighter-blue"
-            asChild
-          >
+          <Button variant="default" size="sm" className="bg-[#0057B8] text-white hover:bg-[#004494]" asChild>
             <Link href="/registracija">Registracija</Link>
           </Button>
         </div>
