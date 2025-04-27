@@ -59,15 +59,15 @@ export function SubscriptionButton({
       onClick={handleSubscriptionToggle}
       disabled={isLoading}
       className={isSubscribed ? "bg-zagi-light-blue text-white hover:bg-zagi-blue" : ""}
+      title={isSubscribed ? "Otkaži pretplatu" : "Pretplati se"}
     >
       {isLoading ? (
-        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+        <Loader2 className="h-4 w-4 animate-spin" />
       ) : isSubscribed ? (
-        <BellOff className="h-4 w-4 mr-2" />
+        <BellOff className="h-4 w-4" />
       ) : (
-        <Bell className="h-4 w-4 mr-2" />
+        <Bell className="h-4 w-4" />
       )}
-      {isSubscribed ? "Otkaži pretplatu" : "Pretplati se"}
     </Button>
   )
 }
