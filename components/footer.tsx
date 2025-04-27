@@ -23,12 +23,6 @@ export function Footer() {
           <Link href="/admin" className="text-sm hover:underline">
             Admin
           </Link>
-          <Link href="/privatnost" className="text-sm hover:underline">
-            Privatnost
-          </Link>
-          <Link href="/uvjeti-koristenja" className="text-sm hover:underline">
-            Uvjeti korištenja
-          </Link>
         </div>
       </div>
     </footer>

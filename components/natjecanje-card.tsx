@@ -71,7 +71,7 @@ export function NatjecanjeCard({ natjecanje }: NatjecanjeCardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button asChild className="w-full bg-primary text-white">
+        <Button asChild className="w-full bg-[#0057B8] hover:bg-[#004494] text-white">
           <Link href={`/natjecanja/${natjecanje.id}`}>Detalji</Link>
         </Button>
       </CardFooter>
